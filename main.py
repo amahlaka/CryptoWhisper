@@ -60,7 +60,7 @@ def playSound(path):
 
 def getDifference(old, new):
     if(old == new):
-        return(0)
+        return(0.000)
     else:
         difference = float(new)-float(old)
         if(difference >= 0.5):
@@ -78,7 +78,6 @@ def colorize(inp):
     else:
         color = "grey"
     string = str("{:.5f}".format(inp))
-    print(colored(string, color))
     colorizedString = colored(string, color)
     return(colorizedString)
 import time
@@ -97,12 +96,15 @@ while True:
     spacer = "     "
     spacerb = "      "
 
-    td = colorize(zecDiff)
+    zc = colorize(zecDiff)
+    bc = colorize(btcDiff)
+    xc = colorize(xmrDiff)
+    ec = colorize(ethDiff)
     oldZec = zecP
     oldBtc = btcP
     oldXmr = xmrP
     oldEth = ethP
-
+    td = spacer+zc+spacerb+ec+spacerb+xc+spacerb+bc
     print("-------------------------------------------------------------------")
     print(sp+"  "+str(datetime.now().strftime('%H:%M:%S')))
     print(td)
