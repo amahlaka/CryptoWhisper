@@ -75,10 +75,10 @@ def colorize(inp):
         color = "green"
     if(inp < 0):
         color = "red"
-    else:
+    if(inp == 0):
         color = "grey"
-    string = str("{:.5f}".format(inp))
-    colorizedString = colored(string, color)
+    strings = str("{:.5f}".format(inp))
+    colorizedString = colored(strings, color)
     return(colorizedString)
 import time
 from datetime import datetime
@@ -110,6 +110,7 @@ while True:
     print(td)
     print("-------------------------------------------------------------------")
     generateSpeech(sp, "forecast")
-    playSound("forecast.mp3")
+    with suppress_output():
+     playSound("forecast.mp3")
 
     time.sleep(5)
