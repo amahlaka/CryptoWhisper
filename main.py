@@ -78,22 +78,19 @@ def colorize(dict):
 
 
 
+def generateStringsPure(dict):
+
+    outpure = dict['name']+". value: "+str(dict['value']).replace('.',' point ')+" . change: "+str(dict['difference']).replace('.',' point ')+ " . "
+
+    return(outpure)
 def generateStrings(dict):
     from termcolor import colored
-    outp = dict['name']+" "+str(dict['value'])+" change: "+colored(str(dict['difference']), dict['color'])+ " "
+    outp = dict['name']+": "+str(dict['value']).replace('.',',')+" . "+colored(str(dict['difference']), dict['color'])+ " | "
 
     return(outp)
 
 
 # strings = str("{:.5f}".format(difference[x]))
-def printUpdate(val, diff):
-    """Print the latest update."""
-    clearScreen()
-    print("------------------------------------------------------------------")
-    print(val+"  "+str(datetime.now().strftime('%H:%M:%S')))
-    print(diff)
-    print("------------------------------------------------------------------")
-
 
 def clearScreen():
     """Check os and clear the screen."""
@@ -110,26 +107,36 @@ def clearScreen():
 
 def checkDifference(dict):
     """Check Difference between old and new."""
-    dict['difference']=float(dict['value'])-float(dict['oldValue'])
+    dict['difference']=round(float(dict['value'])-float(dict['oldValue']),6)
     colorize(dict)
     dict['oldValue'] = dict['value']
     return
 
 def checkValue(dict):
     """Check value of all coins in list"""
-    dict['value']=float(getCoin(dict['name'],dict['currency']))
+    dict['value']=round(float(getCoin(dict['name'],dict['currency'])),5)
     checkDifference(dict)
     return
 
 
 while True:
-
+# Loop
     checkValue(ZEC)
     pri = generateStrings(ZEC)
     checkValue(ETH)
     pri+=generateStrings(ETH)
     checkValue(BTC)
     pri+=generateStrings(BTC)
+    pure=generateStringsPure(ZEC)
+    pure+=generateStringsPure(ETH)
+    pure+=generateStringsPure(BTC)
+
+
     clearScreen()
+    print("")
+    print("-------------------------------------------------------------------------------------------------------------")
     print(pri)
+    print("-------------------------------------------------------------------------------------------------------------")
+    #generateSpeech(pure, "forecast")
+    #playSound("forecast.mp3")
     time.sleep(5)
